@@ -1,0 +1,27 @@
+{
+    "name": "yk/laravel-installer",
+    "description": "Laravel project installer wizard",
+    "homepage": "https://github.com/yassine-khachlek/laravel-installer",
+    "license": "GPLv2",
+    "keywords": [
+        "laravel",
+        "install",
+        "installer",
+        "wizard"
+    ],
+    "authors": [
+        {
+            "name": "Yassine Khachlek",
+            "email": "yassine.khachlek@gmail.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "classmap": [
+            "src/"
+        ],
+        "psr-4": {
+            "Yk\\LaravelInstaller\\": "src/"
+        }
+    }
+}
