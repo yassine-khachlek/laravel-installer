@@ -77,6 +77,16 @@ class InstallController extends Controller
                 }
             }
 
+            if (starts_with($line, 'APP_KEY')) {
+
+                \Artisan::call('key:generate', [
+                    '--no-interaction' => true, '--show' => true
+                ]);
+
+                $env_index[$line_number] = 'APP_KEY='.(\Artisan::output());
+
+            }
+
         }
 
         $env = array();
@@ -103,19 +113,13 @@ class InstallController extends Controller
 
         $output .= (\Artisan::output());
 
+        \Artisan::call('config:cache', []);
+
+        $output .= (\Artisan::output());
+
         \Artisan::call('migrate:refresh', [
             '--force' => true, '--seed' => true
         ]);
-
-        $output .= (\Artisan::output());
-
-        \Artisan::call('key:generate', [
-            '--no-interaction' => true
-        ]);
-
-        $output .= (\Artisan::output());
-
-        \Artisan::call('config:cache', []);
 
         $output .= (\Artisan::output());
 
