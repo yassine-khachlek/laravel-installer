@@ -18,12 +18,14 @@ class MiddlewareTrigger
 
         $response = $next($request);
 
+        /*
         // Forbidden install when .env exist
         if ($request->getRequestUri() === '/install')
             if(\File::exists(base_path('.env')))
                 $response->setContent(view('Yk\LaravelInstaller::install.forbidden'));
+        */
 
-        // Redirect to the install script when .en is missing
+        // Redirect to the install script when .env is missing
         if ($request->getRequestUri() !== '/install')
             if(!\File::exists(base_path('.env')))
                 $response->setContent(view('Yk\LaravelInstaller::install.redirect'));
