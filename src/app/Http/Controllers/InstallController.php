@@ -127,7 +127,7 @@ class InstallController extends Controller
 
         return view('Yk\LaravelInstaller::install.store',
             array(
-                'env' => implode(PHP_EOL, $env),
+                'env' => file_get_contents(base_path('.env')),
                 'output' => $output
             )
         );
