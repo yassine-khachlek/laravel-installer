@@ -15,24 +15,22 @@ class MiddlewareTrigger
      */
     public function handle($request, Closure $next)
     {
+        if (\File::exists(base_path('.env'))) {
+            if ($request->getRequestUri() === '/install') {
+                return redirect('/');
+            }    
+        }else{
+            if ($request->getRequestUri() !== '/install') {
+                return redirect(route('install.index'));
+            }
+        }
 
-        $response = $next($request);
-
-        /*
-        // Forbidden install when .env exist
-        if ($request->getRequestUri() === '/install')
-            if(\File::exists(base_path('.env')))
-                $response->setContent(view('Yk\LaravelInstaller::install.forbidden'));
-        */
-
-        // Redirect to the install script when .env is missing
-        if ($request->getRequestUri() !== '/install')
-            if(!\File::exists(base_path('.env')))
-                $response->setContent(view('Yk\LaravelInstaller::install.redirect'));
-
-        return $response;
-        
+        return $next($request);
     }
 
+    public function terminate($request, $response)
+    {
+        
+    }
 
 }
